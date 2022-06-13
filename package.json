@@ -1,0 +1,32 @@
+{
+  "name": "cloudfront-image-process",
+  "version": "0.1.0",
+  "description": "Image processing module for AWS CloudFront.",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghosind/cloudfront-image-process.git"
+  },
+  "keywords": [
+    "aws",
+    "cloudfront",
+    "image-process",
+    "resize"
+  ],
+  "author": "Chen Su",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ghosind/cloudfront-image-process/issues"
+  },
+  "homepage": "https://github.com/ghosind/cloudfront-image-process#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.42",
+    "eslint": "^8.17.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-ghosind": "^1.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "typescript": "^4.7.3"
+  }
+}
