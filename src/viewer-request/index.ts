@@ -1,3 +1,5 @@
+const AllowedMinWidth: number = 4;
+const AllowedMinHeight: number = 4;
 const AllowedMaxWidth: number = 4096;
 const AllowedMaxHeight: number = 4096;
 const AllowedExtensions: string[] = [
@@ -19,37 +21,54 @@ const AllowedExtensions: string[] = [
   'svg',
 ];
 
-const getImageDimension = (params: URLSearchParams): string => {
-  let width = params.get('width');
-  let height = params.get('height');
+const normalizeValue = (value: string | undefined, max: number, min: number): number | undefined => {
+  if (!value) {
+    return undefined;
+  }
 
-  // TODO
+  let num = Number(value);
+  if (num > max) {
+    num = max;
+  } else if (num < min) {
+    num = min;
+  }
 
-  return `${width}x${height}`;
+  return num;
 }
 
-export const handler = (event: any) => {
-  const request = event.Records[0].cf.request;
-  let uri = request.uri;
+const getImageDimension = (params: CFFunctionData): string | null => {
+  let width = params?.width?.value;
+  let height = params?.height?.value;
 
-  const match = uri.match(/(.*)\/(.*)\.(.*)/);
+  if (!width && !height) {
+    return null;
+  }
+
+  return `${
+    normalizeValue(width, AllowedMaxWidth, AllowedMinWidth) || ''
+  }x${
+    normalizeValue(height, AllowedMaxHeight, AllowedMinHeight) || ''
+  }`;
+}
+
+export const handler = (event: CFFunctionEvent): CFFunctionRequest => {
+  const request = event.request;
+
+  const match = /(.*)\/(.*)\.(.*)/.exec(request.uri);
   if (!match) {
     return request;
   }
 
-  const [ , path, filename, extension ] = match;
-  if (!AllowedExtensions.includes(extension)) {
+  let [ , path, filename, extension ] = match;
+  if (!AllowedExtensions.includes(extension.toLowerCase())) {
     return request;
   }
 
-  const params = new URLSearchParams(request.querystring);
-  if (!params.has('width') && !params.has('height')) {
+  const dimension = getImageDimension(request.querystring);
+  if (!dimension) {
     return request;
   }
-  const dimension = getImageDimension(params);
 
-  uri = `${path}/${filename}_${dimension}.${extension}`;
-  request.uri = uri;
-
+  request.uri = `${path}/${filename}_${dimension}.${extension}`;
   return request;
 }
