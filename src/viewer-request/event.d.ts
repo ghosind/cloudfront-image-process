@@ -20,8 +20,8 @@ interface CFFunctionEvent {
    *   requestId: 'EXAMPLEntjQpEXAMPLE_SG5Z-EXAMPLEPmPfEXAMPLEu3EqEXAMPLE==',
    * }
    */
-
   context: CFFunctionContext;
+
   /**
    * The viewer object contains
    * @example
