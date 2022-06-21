@@ -1,3 +1,5 @@
+import { CFFunctionEvent, CFFunctionRequest, CFFunctionData } from './event.d';
+
 const AllowedMinWidth: number = 4;
 const AllowedMinHeight: number = 4;
 const AllowedMaxWidth: number = 4096;
@@ -21,7 +23,11 @@ const AllowedExtensions: string[] = [
   'svg',
 ];
 
-const normalizeValue = (value: string | undefined, max: number, min: number): number | undefined => {
+const normalizeValue = (
+  value: string | undefined,
+  max: number,
+  min: number,
+): number | undefined => {
   if (!value) {
     return undefined;
   }
@@ -34,11 +40,11 @@ const normalizeValue = (value: string | undefined, max: number, min: number): nu
   }
 
   return num;
-}
+};
 
 const getImageDimension = (params: CFFunctionData): string | null => {
-  let width = params?.width?.value;
-  let height = params?.height?.value;
+  const width = params?.width?.value;
+  const height = params?.height?.value;
 
   if (!width && !height) {
     return null;
@@ -49,17 +55,17 @@ const getImageDimension = (params: CFFunctionData): string | null => {
   }x${
     normalizeValue(height, AllowedMaxHeight, AllowedMinHeight) || ''
   }`;
-}
+};
 
 export const handler = (event: CFFunctionEvent): CFFunctionRequest => {
-  const request = event.request;
+  const { request } = event;
 
   const match = /(.*)\/(.*)\.(.*)/.exec(request.uri);
   if (!match) {
     return request;
   }
 
-  let [ , path, filename, extension ] = match;
+  const [, path, filename, extension] = match;
   if (!AllowedExtensions.includes(extension.toLowerCase())) {
     return request;
   }
@@ -71,4 +77,4 @@ export const handler = (event: CFFunctionEvent): CFFunctionRequest => {
 
   request.uri = `${path}/${filename}_${dimension}.${extension}`;
   return request;
-}
+};

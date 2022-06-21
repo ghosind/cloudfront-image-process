@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars, no-use-before-define */
+
 /**
  * CloudFront Functions event object.
  * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html#functions-event-structure-query-header-cookie
  */
-interface CFFunctionEvent {
+export interface CFFunctionEvent {
   /**
    * The version of CloudFront Functions event object. The current version is '1.0'.
    * @example '1.0'
@@ -54,7 +56,7 @@ interface CFFunctionEvent {
  * CloudFront Functions context object.
  * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html#functions-event-structure-context
  */
-interface CFFunctionContext {
+export interface CFFunctionContext {
   /**
    * The CloudFront domain name of the distribution that’s associated with the event.
    * @example 'd111111abcdef8.cloudfront.net'
@@ -82,7 +84,7 @@ interface CFFunctionContext {
  * CloudFront Functions viewer object.
  * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html#functions-event-structure-viewer
  */
-interface CFFunctionViewer {
+export interface CFFunctionViewer {
   /**
    * The IP address of the viewer (client) that sent the request.  If the viewer request came
    * through an HTTP proxy or a load balancer, the value is the IP address of the proxy or load
@@ -95,7 +97,7 @@ interface CFFunctionViewer {
  * CloudFront Functions request object.
  * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html#functions-event-structure-request
  */
-interface CFFunctionRequest {
+export interface CFFunctionRequest {
   /**
    * The HTTP method of the request. It is a read-only field in the request object.
    */
@@ -141,7 +143,7 @@ interface CFFunctionRequest {
  * CloudFront Functions response object.
  * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html#functions-event-structure-response
  */
-interface CFFunctionResponse {
+export interface CFFunctionResponse {
   /**
    * The HTTP status code of the response. This value is an integer, not a string.
    */
@@ -171,7 +173,7 @@ interface CFFunctionResponse {
  * and response objects.
  * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html#functions-event-structure-query-header-cookie
  */
-interface CFFunctionData {
+export interface CFFunctionData {
   [key: string]: CFFunctionDataValue;
 }
 
@@ -179,7 +181,7 @@ interface CFFunctionData {
  * The share value structure for query strings, headers, and cookies in the CloudFront Functions
  * request and response objects.
  */
-interface CFFunctionDataValue {
+export interface CFFunctionDataValue {
   /**
    * It contains the value of the query string, header, or cookie.
    */
@@ -200,7 +202,7 @@ interface CFFunctionDataValue {
 /**
  * CloudFront Functions event types.
  */
-enum CFFunctionEventType {
+export enum CFFunctionEventType {
   /**
    * Event for Viewer request.
    */
