@@ -2,7 +2,7 @@
 
 /**
  * CloudFront Functions event object.
- * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html#functions-event-structure-query-header-cookie
+ * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html
  */
 export interface CFFunctionEvent {
   /**
